@@ -8,7 +8,10 @@ import Obat from '../components/pages/Obat/Obat.js'
 import Pasien from '../components/pages/Pasien/Pasien.js'
 import Petugas from '../components/pages/Petugas/Petugas.js'
 import Stok from '../components/pages/Doras/Stok.js'
-import subMateri from  '../components/pages/Materi/subMateri.js'
+import Detail from  '../components/pages/Materi/detail.js'
+import Profil from  '../components/pages/About/Profil.js'
+import About from  '../components/pages/About/About.js'
+
 
 const RootNavigator = StackNavigator({
   Home:{
@@ -20,8 +23,8 @@ const RootNavigator = StackNavigator({
   Materi:{
   	screen: Materi
   },
-  subMateri:{
-  	screen: subMateri
+  Detail:{
+    screen: Detail
   },
   Doras:{
   	screen: Doras
@@ -37,6 +40,12 @@ const RootNavigator = StackNavigator({
   },
   Petugas:{
     screen: Petugas
+  },
+  Profil:{
+    screen: Profil
+  },
+   About:{
+    screen: About
   }
 })
 

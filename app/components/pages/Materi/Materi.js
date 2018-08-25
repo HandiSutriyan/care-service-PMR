@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import {Text, ScrollView, Image, ImageBackground, View} from 'react-native'
 import {Container, Content, Row, Col, Grid, List, ListItem,
 		Icon, Button} from 'native-base'
-
-import FootMenu from '../Footer/Footer.js'
 import { NavigationActions } from 'react-navigation'
+
 import {allMateri} from '../../actions'
 import {connect} from 'react-redux'
 
@@ -48,16 +47,13 @@ class Materi extends Component{
 					<List style={{flex:1}}>
 					{this.props.materi.materies.map((item,i)=>{
 						return(
-							<ListItem key={i} onPress={()=>this.props.navigation.navigate('subMateri',{materi:item.name,sub:item.item})}>
+							<ListItem key={i} onPress={()=>this.props.navigation.navigate('Detail',{materi:item.name,url:item.url})}>
 								<Text>{item.name}</Text>
 							</ListItem>
 							)
 					})}
 					</List>
-				</Row>	
-
-				<FootMenu/>
-
+				</Row>
 			</Container>
 			)
 	}

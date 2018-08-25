@@ -40,6 +40,7 @@ class Doras extends Component{
     };
   };
 	render(){
+		console.log(this.props.doras.jadwal)
 		return(
 			<Container>
 				<Row size={1}>
@@ -74,12 +75,9 @@ class Doras extends Component{
 							{this.props.doras.jadwal.map((item,i)=>(
 								<ListItem key={i}>
 									<Col>
-										<Text>Tanggal:{item.date}</Text>
-										<Text>Lokasi: {item.venue}</Text>
-									</Col>
-									<Col>
-										<Text>Pukul: {item.time}</Text>
-										<Text>Penyelenggara: {item.host}</Text>
+											<Text>Tanggal:{item.tgl}</Text>
+											<Text>Kegiatan: {item.kegiatan}</Text>
+											<Text>{item.ket}</Text>
 									</Col>
 								</ListItem>
 							))}	

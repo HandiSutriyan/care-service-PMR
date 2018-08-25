@@ -1,6 +1,7 @@
 
 import { createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers'
 import { createStore, applyMiddleware } from 'redux'
+import promiseMiddleware from 'redux-promise-middleware'
 
 import reducers from './rootReducers'
 
@@ -11,7 +12,7 @@ const middleware = createReactNavigationReduxMiddleware(
 
 const store = createStore(
   reducers,
-  applyMiddleware(middleware),
+  applyMiddleware(middleware,promiseMiddleware()),
 );
 
 export default store

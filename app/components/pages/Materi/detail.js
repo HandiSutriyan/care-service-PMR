@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
-import {Text, View, FlatList} from 'react-native'
-import {Container, Col, Row, Image, Button, Icon
+import {Text, View, FlatList, WebView} from 'react-native'
+import {Container, Col, Content, Row, Image, Button, Icon, Spinner
 		, List, ListItem} from 'native-base'
 
 import { NavigationActions } from 'react-navigation'
 import {connect} from 'react-redux'
 
-class subMateri extends Component{
+class Detail extends Component{
 	state={
 
 	title:this.props.navigation.getParam('materi'),
-	subItem:this.props.navigation.getParam('sub')
+	url:this.props.navigation.getParam('url')
 }
 	static navigationOptions = ({ navigation }) => {
             
@@ -40,21 +40,39 @@ class subMateri extends Component{
         },
     };
   };
+  ActivityIndicatorLoadingView() {
+	    return (
+	     <Container>
+	      <Content>
+	        <Spinner color='red'/>
+	      </Content>
+	     </Container>
+	    );
+	  }
+	 LoadError(){
+	  return(
+	    <Container>
+	      <Col style={styles.Errmsg}>
+	        <Icon name='warning'/>
+	        <Text> Maaf Gagal Memuat Data !!</Text>
+	      </Col>
+	    </Container>
+	    )
+	 }
 	render(){
 		console.log(this.state.subItem)
 		return(
 			
 			<Container>
-				<Row style={{flex:1}}>
-					<List style={{flex:1}}>
-					{this.state.subItem.map((item,i)=>{
-						return(							
-								<ListItem key={i}>
-									<Text>{item.name}</Text>
-								</ListItem>
-							)
-					})}
-					</List>
+				<Row>
+					 <WebView 
+			           source={{uri: this.state.url}} 
+			           javaScriptEnabled={true}
+			           domStorageEnabled={true}
+			           renderError={this.LoadError}
+			           renderLoading={this.ActivityIndicatorLoadingView}   
+			           startInLoadingState={true}  
+			           />
 				</Row>
 			</Container>
 				
@@ -67,4 +85,4 @@ const mapStateToProps = (state) => {
 		}
 }
 
-export default connect (mapStateToProps)(subMateri);
+export default connect (mapStateToProps)(Detail);

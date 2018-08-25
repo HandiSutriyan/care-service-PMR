@@ -1,55 +1,25 @@
-export function allMenu(){
-    // data simulation
-    const menu= [
-        { name: 'Model', icon: 'person', value:'Home' },
-        { name: 'Kamera', icon: 'camera' },
-        { name: 'Gambar', icon : 'images', value:'Picture'},
-        { name: 'Huruf', icon: 'create',value:'Font' },
-        { name: 'Forme', icon : 'star'},
-        { name: 'Efek', icon: 'color-wand' },
-        { name: 'Stikcer', icon: 'happy' },
-        
-    ]
+import axios from 'axios'
 
-    return {
-        type: 'ALL_MENU',
-        payload: menu
-    }
-}
 export function allJadwal(){
-	const jadwal = [
-		{date:'02 Januari 2019', venue:'SMK N 1 Gombong', time:'08.00 s.d. selesai', host:'SMK N 1 Gombong'},
-        {date:'02 Januari 2019', venue:'SMK N 1 Gombong', time:'08.00 s.d. selesai', host:'SMK N 1 Gombong'},
-        {date:'02 Januari 2019', venue:'SMK N 1 Gombong', time:'08.00 s.d. selesai', host:'SMK N 1 Gombong'},
-        {date:'02 Januari 2019', venue:'SMK N 1 Gombong', time:'08.00 s.d. selesai', host:'SMK N 1 Gombong'},
-        {date:'02 Januari 2019', venue:'SMK N 1 Gombong', time:'08.00 s.d. selesai', host:'SMK N 1 Gombong'},
-	]
-
 	return {
 		type: 'ALL_JADWAL',
-		payload : jadwal
+		payload : axios.get('https://pmrwirastemsagoorg.000webhostapp.com/api/kegiatan.php')
 	}
+}
+export function allInfo(){
+    return{
+        type: 'ALL_INFO',
+        payload: axios.get('https://pmrwirastemsagoorg.000webhostapp.com/api/info.php')
+    }
 }
 export function allMateri(){
     const materi=[
-        {name:'Materi Kepalangmerahan',item:[
-            {name:'Sejarah Kepalangmerahan'},
-            {name:'Makna Badge PMR'},
-            {name:'Lagu Mars PMI dan Bhakti Remaja'},
-            {name:'Tujuh Prinsip Palang Merah dan Tri Bhakti'}
-        ]},
-        {name:'Pertolongan Pertama',item:[
-            {name:'Pembalutan & Pembidaian'},
-            {name:'Evakuasi'},
-            {name:'Keracunan'},
-            {name:'Kedaruratan Medis'},
-            {name:'BHD dan RJP'},
-            {name:'Pertolongan Korban Banyak'}
-        ]},
-        {name:'Perawatan Keluarga',item:[]},
-        {name:'Pasang Bongkar Tenda & Tandu',item:[]},
-        {name:'Pendidikan Remaja Sebaya',item:[]},
-        {name:'Triage',item:[]}
+        {name:'Materi Kepalangmerahan',url:'https://drive.google.com/file/d/1pRiOYzh-G185_QD6VRfe2VXQ-pyBJ2o4/view'},
+        {name:'Pertolongan Pertama',url:'https://drive.google.com/file/d/10ukR5AkrSHC7Tk7kJ1c6bb6s0QwA---u/view'},
+        {name:'Perawatan Kedaruratan',url:'https://drive.google.com/file/d/11Y2kGA0j_giZ98xmDXwrIS-E0QlRcilz/view'},
+        {name:'Pendidikan Remaja Sebaya',url:'https://drive.google.com/file/d/1bMwXSDgT-9tbpsJXc4lm45tddJ1KC9GK/view'},
+        {name:'Siap Siaga Bencana',url:'https://drive.google.com/file/d/1oaWWrbnkdklnhVDrK23a_CxFM0HeLJyx/view'},
+        {name:'Donor Darah',url:'https://drive.google.com/file/d/10rTYAk8r-mlVrEjmN1fj7qgOtiyE2sUW/view'}
     ]
     return{
         type:'ALL_MATERI',

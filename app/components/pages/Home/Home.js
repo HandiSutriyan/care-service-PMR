@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
-import {Text, ScrollView, Image, ImageBackground, View} from 'react-native'
+import {Text, ScrollView, Image, ImageBackground, View, StyleSheet} from 'react-native'
 import {Container, Content, Row, Col, Footer, FooterTab, Grid,
 		Icon, Button} from 'native-base'
+import Swiper from 'react-native-swiper'
 import { NavigationActions } from 'react-navigation'
 import {connect} from 'react-redux'
 
 import FootMenu from '../Footer/Footer.js'
-import {allMenu} from '../../actions'
+import {allInfo} from '../../actions'
 
 class Home extends Component{
 	componentDidMount(){
-		this.props.dispatch(allMenu())
+		this.props.dispatch(allInfo())
 	}
 
 	 static navigationOptions = ({ navigation }) => {
@@ -30,18 +31,27 @@ class Home extends Component{
     };
   };
 	render(){
+		console.log(this.props.info.infos)
 		return(
 			<Container>
 				<Row size={2}>
-					<Content style={{backgroundColor:'red',padding:20,margin:20, height:'auto',borderRadius:10}}>
-						<Row size={1}>
-							<Icon name="information-circle" style={{color:'#fff'}}/>
-							<Text style={{color:'#fff',marginLeft:10,fontSize:20,fontWeight:'bold'}}>Info Donor Darah :</Text>
+					<Content style={{backgroundColor:'red',marginBottom:20, width:'100%', height:'auto'}}>
+						<Row size={1} style={{padding:10}}>
+							<Icon style={{color:'#fff',marginRight:10}} name='information-circle'/>
+							<Text style={style.slideText}>Info Terkini</Text>
 						</Row>
-						<Row size={3}>
-							<Text style={{color:'#fff',margin:10}}>
-								Terima kasih sekali sudah mempercayai kami sebagai pendamping belajar Anda. Kami berharap program Hacking English ini dapat membantu Anda meningkatkan kemampuan berbicara Anda dalam Bahasa Inggris.
-							</Text>
+						<Row size={5} style={style.wrapper}>
+							
+							<Swiper autoplay={true}>
+							{this.props.info.infos.map((item,i)=>(
+							 	<Container style={style.slide1} key={i}>
+			                        <Text style={style.slideTiltle}>{item.kegiatan}</Text>
+			                        <Text>Tanggal: {item.tgl} Diupload: {item.upload}</Text>
+			                        <Text style={style.slideText}>{item.ket}</Text>
+			                     </Container>
+							))}		                        
+		                    </Swiper>
+
 						</Row>						
 					</Content>
 				</Row>
@@ -66,19 +76,19 @@ class Home extends Component{
 					</Button>
 				</Row>
 
-				<Footer style={{backgroundColor:'red',flexDirection:'column',justifyContent:'flex-start',height:60}}>
+				<Footer style={{backgroundColor:'red',flexDirection:'column',justifyContent:'flex-start',height:50}}>
                     <FooterTab style={{backgroundColor:'transparent',flex:1,flexDirection:'row',justifyContent:'space-between',width:365}}>
                             <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('Petugas')}>
                               <Icon name='people' style={{textAlign:'center',color:'#FFF'}}/>
-                              <Text style={{color:'#fff'}}>Petugas UKS</Text>
+                              <Text style={style.iconText}>Petugas UKS</Text>
                             </Button>
-                            <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('Home')}>
+                            <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('Profil')}>
                               <Icon name='person' style={{textAlign:'center',color:'#FFF'}}/>
-                              <Text style={{color:'#fff'}}>Profil Kami</Text>
+                              <Text style={style.iconText}>Profil Kami</Text>
                             </Button>
-                            <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('Home')}>
+                            <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('About')}>
                               <Icon name='help' style={{textAlign:'center',color:'#FFF'}}/>
-                              <Text style={{color:'#fff'}}>Tentang Aplikasi</Text>
+                              <Text style={style.iconText}>Tentang Aplikasi</Text>
                             </Button>
                       </FooterTab>                  
                 </Footer>
@@ -89,8 +99,37 @@ class Home extends Component{
 
 const mapStateToProps = (state) => {
 	return{
-		menu: state.menuReducer
+		info: state.menuReducer
 		}
 }
 
 export default connect (mapStateToProps)(Home);
+
+const style= StyleSheet.create({
+	wrapper: {
+        height:200,
+        width:'100%',
+    },
+    //style slide
+    slide1: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        backgroundColor: 'transparent',
+        padding: 10,
+      },
+      slideText:{
+      	color:'#fff',
+      	fontSize:18
+      },
+      slideTiltle:{
+      	color:'#fff',
+      	fontWeight:'bold',
+      	fontSize:20,
+      },
+      iconText:{
+      	color:'#fff',
+      	fontSize:11
+      }
+      
+})
