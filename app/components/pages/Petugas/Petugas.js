@@ -4,13 +4,7 @@ import {Container, Content, Row, Col, Spinner,
 		Button, Image, Icon, Card, List, ListItem} from 'native-base'
 
 import { NavigationActions } from 'react-navigation'
-import {connect} from 'react-redux'
-import {allPasien} from '../../actions'
-
-class Petugas extends Component{
-	componentDidMount(){
-		this.props.dispatch(allPasien())
-	}
+export default class Petugas extends Component{
 	static navigationOptions = ({ navigation }) => {
             
     return {
@@ -27,7 +21,7 @@ class Petugas extends Component{
       headerRight:(
         <View>
             <View>
-               <Button transparent onPress={() => navigation.navigate('Home')} style={{height:50}}>
+               <Button transparent onPress={() => navigation.goBack()} style={{height:50}}>
                 <Text style={{color:'#FFF',paddingRight:10,fontWeight:'bold'}}>Back</Text>
               </Button>
             </View>
@@ -54,8 +48,10 @@ class Petugas extends Component{
   return(
     <Container>
       <Col style={styles.Errmsg}>
-        <Icon name='warning'/>
+       <Icon name='warning'/>
         <Text> Maaf Gagal Memuat Data !!</Text>
+        <Text>Fitur ini membutuhkan koneksi internet</Text>
+        <Text>Mohon periksa kembali koneksi Anda!</Text>
       </Col>
     </Container>
     )
@@ -77,13 +73,6 @@ class Petugas extends Component{
 			)
 	}
 }
-const mapStateToProps = (state) =>{
-	return{
-		pasien : state.menuReducer
-	}
-}
-export default connect (mapStateToProps)(Petugas);
-
 const styles= StyleSheet.create({
   Errmsg:{
   flex:1,

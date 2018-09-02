@@ -1,15 +1,12 @@
 import React, {Component} from 'react'
-import {Text, View, FlatList, WebView} from 'react-native'
+import {Text, View, FlatList, WebView, StyleSheet} from 'react-native'
 import {Container, Col, Content, Row, Image, Button, Icon, Spinner
 		, List, ListItem} from 'native-base'
 
 import { NavigationActions } from 'react-navigation'
-import {connect} from 'react-redux'
 
-class Detail extends Component{
+export default class Detail extends Component{
 	state={
-
-	title:this.props.navigation.getParam('materi'),
 	url:this.props.navigation.getParam('url')
 }
 	static navigationOptions = ({ navigation }) => {
@@ -55,6 +52,8 @@ class Detail extends Component{
 	      <Col style={styles.Errmsg}>
 	        <Icon name='warning'/>
 	        <Text> Maaf Gagal Memuat Data !!</Text>
+	        <Text>Fitur ini membutuhkan koneksi internet</Text>
+	        <Text>Mohon periksa kembali koneksi Anda!</Text>
 	      </Col>
 	    </Container>
 	    )
@@ -79,10 +78,12 @@ class Detail extends Component{
 			)
 	}
 }
-const mapStateToProps = (state) => {
-	return{
-		submateri: state.menuReducer
-		}
-}
 
-export default connect (mapStateToProps)(Detail);
+const styles= StyleSheet.create({
+  Errmsg:{
+  flex:1,
+  flexDirection:'column',
+  justifyContent:'center',
+  alignItems:'center'
+}
+})

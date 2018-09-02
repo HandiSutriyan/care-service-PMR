@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Text, ScrollView, Image, ImageBackground, View, StyleSheet} from 'react-native'
-import {Container, Content, Row, Col, Footer, FooterTab, Grid,
+import {Container, Content, Row, Col, Footer, FooterTab, Grid, Spinner,
 		Icon, Button} from 'native-base'
 import Swiper from 'react-native-swiper'
 import { NavigationActions } from 'react-navigation'
@@ -30,8 +30,42 @@ class Home extends Component{
         },
     };
   };
+ handleError(isLoading,data){
+	const news=this.props.info;
+	console.log('isLoading: '+isLoading);
+	console.log('data: '+data);
+  	if (isLoading != false && data != [] ){
+  		return(
+  			<Swiper autoplay={true}>
+			{this.props.info.infos.map((item,i)=>(
+				<Container style={style.slide1} key={i}>
+			        <Text style={style.slideTiltle}>{item.kegiatan}</Text>
+			        <Text>Tanggal: {item.tgl} Diupload: {item.upload}</Text>
+			        <Text style={style.slideText}>{item.ket}</Text>
+			    </Container>
+			))}		                        
+		    </Swiper>
+  			)
+  	}else if(isLoading != false && data == []){
+  		return(
+  			<Container>
+	  			<Col style={style.errorLoad}>
+		  			<Text>Tidak ada data</Text>
+		  		</Col>
+	  		</Container>
+  			)
+  }else{
+  	return(
+  		<Container>
+  			<Col>
+  				<Spinner color='white'/>
+  			</Col>
+  		</Container>
+  		)
+  }
+}
 	render(){
-		console.log(this.props.info.infos)
+		console.log(this.props.info.isLoading)
 		return(
 			<Container>
 				<Row size={2}>
@@ -41,17 +75,7 @@ class Home extends Component{
 							<Text style={style.slideText}>Info Terkini</Text>
 						</Row>
 						<Row size={5} style={style.wrapper}>
-							
-							<Swiper autoplay={true}>
-							{this.props.info.infos.map((item,i)=>(
-							 	<Container style={style.slide1} key={i}>
-			                        <Text style={style.slideTiltle}>{item.kegiatan}</Text>
-			                        <Text>Tanggal: {item.tgl} Diupload: {item.upload}</Text>
-			                        <Text style={style.slideText}>{item.ket}</Text>
-			                     </Container>
-							))}		                        
-		                    </Swiper>
-
+							{this.handleError(this.props.info.isLoading,this.props.info.infos)}	
 						</Row>						
 					</Content>
 				</Row>
@@ -81,6 +105,10 @@ class Home extends Component{
                             <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('Petugas')}>
                               <Icon name='people' style={{textAlign:'center',color:'#FFF'}}/>
                               <Text style={style.iconText}>Petugas UKS</Text>
+                            </Button>
+                            <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('Blog')}>
+                              <Icon name='paper' style={{textAlign:'center',color:'#FFF'}}/>
+                              <Text style={style.iconText}>Blog</Text>
                             </Button>
                             <Button vertical style={{marginRight:10,marginBottom:5}}  onPress={()=>this.props.navigation.navigate('Profil')}>
                               <Icon name='person' style={{textAlign:'center',color:'#FFF'}}/>
@@ -130,6 +158,12 @@ const style= StyleSheet.create({
       iconText:{
       	color:'#fff',
       	fontSize:11
+      },
+      errorLoad:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'center',
+        paddingTop:50
       }
       
 })

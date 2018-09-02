@@ -5,6 +5,7 @@ const initialState = {
     materies:[],
     obats:[],
     pasiens:[],
+    allposts:[],
     isLoading:false,
     isError:false
 }
@@ -31,6 +32,12 @@ const menuReducer = (state = initialState, action) => {
             return {...state,materies: action.payload}
         case 'ALL_PASIEN':
             return {...state, pasiens: action.payload}
+        case 'ALL_POSTS_PENDING':
+            return {...state,isLoading:false}
+        case 'ALL_POSTS_FULFILLED':
+            return{...state,isLoading:true,allposts: action.payload.data.items}
+        case 'ALL_POSTS_REJECTED':
+            return{...state,isError:true,allposts: action.payload.data.items}
         default:
             return state
     }

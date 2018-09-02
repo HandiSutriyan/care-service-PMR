@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View, Text, StyleSheet, ScrollView} from 'react-native'
-import {Container, Content, Row, Col,
+import {Container, Content, Row, Col, Spinner,
 		Button, Image, Icon, Card, List, ListItem} from 'native-base'
 
 import { NavigationActions } from 'react-navigation'
@@ -27,7 +27,7 @@ class Doras extends Component{
       headerRight:(
         <View>
             <View>
-               <Button transparent onPress={() => navigation.navigate('Home')} style={{height:50}}>
+               <Button transparent onPress={() =>navigation.goBack()} style={{height:50}}>
                 <Text style={{color:'#FFF',paddingRight:10,fontWeight:'bold'}}>Back</Text>
               </Button>
             </View>
@@ -39,8 +39,34 @@ class Doras extends Component{
         },
     };
   };
+
+handleError(isLoading,data){
+	const jad=this.props.doras;
+	console.log('isLoading: '+isLoading);
+	console.log('data: '+data);
+  	if (isLoading != false && data != null ){
+  		jad.jadwal.map((item,i)=>(
+								<ListItem key={i}>
+									<Col>
+											<Text>Tanggal:{item.tgl}</Text>
+											<Text>Kegiatan: {item.kegiatan}</Text>
+											<Text>{item.ket}</Text>
+									</Col>
+								</ListItem>
+							))
+  	}else if(isLoading != false && data == null){
+  		return(
+  			<Container style={styles.error}>
+		  	<Text>Tidak ada data</Text>
+		  	</Container>
+  			)
+  }else{
+  	return(<Spinner color='blue'/>)
+  }
+}
 	render(){
-		console.log(this.props.doras.jadwal)
+		console.log(this.props.doras.isLoading)
+		const jad=this.props.doras;
 		return(
 			<Container>
 				<Row size={1}>
@@ -72,15 +98,7 @@ class Doras extends Component{
 							<Text style={styles.barTitle}>Jadwal Donor Darah</Text>
 						</ListItem>
 						<ScrollView>
-							{this.props.doras.jadwal.map((item,i)=>(
-								<ListItem key={i}>
-									<Col>
-											<Text>Tanggal:{item.tgl}</Text>
-											<Text>Kegiatan: {item.kegiatan}</Text>
-											<Text>{item.ket}</Text>
-									</Col>
-								</ListItem>
-							))}	
+						{this.handleError(jad.isLoading,jad.jadwal)}
 						</ScrollView>					
 					</List>
 				</Row>
@@ -116,5 +134,10 @@ const styles= StyleSheet.create({
 		paddingLeft:10,
 		paddingRight:10,
 		width:'100%'
+	},
+	error:{
+		flex:1,
+		flexDirection:'row',
+		justifyContent:'center'
 	}
 })

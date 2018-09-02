@@ -8,6 +8,8 @@ import Obat from '../components/pages/Obat/Obat.js'
 import Pasien from '../components/pages/Pasien/Pasien.js'
 import Petugas from '../components/pages/Petugas/Petugas.js'
 import Stok from '../components/pages/Doras/Stok.js'
+import Blog from '../components/pages/Blog/Blog.js'
+import Read from '../components/pages/Blog/Read.js'
 import Detail from  '../components/pages/Materi/detail.js'
 import Profil from  '../components/pages/About/Profil.js'
 import About from  '../components/pages/About/About.js'
@@ -40,6 +42,12 @@ const RootNavigator = StackNavigator({
   },
   Petugas:{
     screen: Petugas
+  },
+  Blog:{
+    screen: Blog
+  },
+  Read:{
+    screen: Read
   },
   Profil:{
     screen: Profil

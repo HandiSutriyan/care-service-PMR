@@ -4,13 +4,8 @@ import {Container, Content, Row, Col, Spinner,
 		Button, Image, Icon, Card, List, ListItem} from 'native-base'
 
 import { NavigationActions } from 'react-navigation'
-import {connect} from 'react-redux'
-import {allObat} from '../../actions'
 
-class Obat extends Component{
-	componentDidMount(){
-		this.props.dispatch(allObat())
-	}
+export default class Obat extends Component{
 	static navigationOptions = ({ navigation }) => {
             
     return {
@@ -27,7 +22,7 @@ class Obat extends Component{
       headerRight:(
         <View>
             <View>
-               <Button transparent onPress={() => navigation.navigate('Home')} style={{height:50}}>
+               <Button transparent onPress={() => navigation.goBack()} style={{height:50}}>
                 <Text style={{color:'#FFF',paddingRight:10,fontWeight:'bold'}}>Back</Text>
               </Button>
             </View>
@@ -56,6 +51,8 @@ class Obat extends Component{
       <Col style={styles.Errmsg} >
         <Icon name='warning'/>
         <Text> Maaf Gagal Memuat Data !!</Text>
+        <Text>Fitur ini membutuhkan koneksi internet</Text>
+        <Text>Mohon periksa kembali koneksi Anda!</Text>
       </Col>
     </Container>
     )
@@ -77,13 +74,6 @@ class Obat extends Component{
 			)
 	}
 }
-const mapStateToProps = (state) =>{
-	return{
-		obat : state.menuReducer
-	}
-}
-export default connect (mapStateToProps)(Obat);
-
 const styles= StyleSheet.create({
   Errmsg:{
   flex:1,

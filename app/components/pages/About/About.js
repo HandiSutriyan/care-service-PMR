@@ -21,7 +21,7 @@ export default class About extends Component{
       headerRight:(
         <View>
             <View>
-               <Button transparent onPress={() => navigation.navigate('Home')} style={{height:50}}>
+               <Button transparent onPress={() => navigation.goBack()} style={{height:50}}>
                 <Text style={{color:'#FFF',paddingRight:10,fontWeight:'bold'}}>Back</Text>
               </Button>
             </View>

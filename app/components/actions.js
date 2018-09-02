@@ -26,30 +26,12 @@ export function allMateri(){
         payload: materi
     }
 }
-export function allObat(){
-    const obats=[
-        {name:'Oskadon', indikasi:'Obat Sakit Kepala', stok:'2'},
-        {name:'Oskadon', indikasi:'Obat Sakit Kepala', stok:'2'},
-        {name:'Oskadon', indikasi:'Obat Sakit Kepala', stok:'2'},
-        {name:'Oskadon', indikasi:'Obat Sakit Kepala', stok:'2'},
-        {name:'Oskadon', indikasi:'Obat Sakit Kepala', stok:'2'},
-        {name:'Oskadon', indikasi:'Obat Sakit Kepala', stok:'2'},
-        {name:'Oskadon', indikasi:'Obat Sakit Kepala', stok:'2'},
-    ]
+export function allPosts(){
+    const token="AIzaSyAAfoTDgahI0E8qhFYd556fxM1oAsxcWJg";
+    const posts= axios.get('https://www.googleapis.com/blogger/v3/blogs/3431680153533403598/posts?fetchBodies=false&key=AIzaSyAAfoTDgahI0E8qhFYd556fxM1oAsxcWJg');
+
     return{
-        type: 'ALL_OBAT',
-        payload: obats
-    }
-}
-export function allPasien(){
-    const pasien=[
-        {name:'Sudarmono', keluhan:'Sakit Kepala', petugas:'Wahyuni'},
-        {name:'Sudarmono', keluhan:'Sakit Kepala', petugas:'Wahyuni'},
-        {name:'Sudarmono', keluhan:'Sakit Kepala', petugas:'Wahyuni'},
-        {name:'Sudarmono', keluhan:'Sakit Kepala', petugas:'Wahyuni'},
-    ]
-    return{
-        type: 'ALL_PASIEN',
-        payload: pasien
+        type:'ALL_POSTS',
+        payload: posts
     }
 }

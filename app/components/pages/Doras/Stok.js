@@ -50,7 +50,9 @@ export default class Stok extends Component {
  		<Container>
  			<Col style={styles.Errmsg}>
  				<Icon name='warning'/>
- 				<Text> Maaf Gagal Memuat Data !!</Text>
+        <Text> Maaf Gagal Memuat Data !!</Text>
+        <Text>Fitur ini membutuhkan koneksi internet</Text>
+        <Text>Mohon periksa kembali koneksi Anda!</Text>
  			</Col>
  		</Container>
  		)

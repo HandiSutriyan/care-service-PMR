@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Text, ScrollView, Image, ImageBackground, View} from 'react-native'
 import {Container, Content, Row, Col, Grid, List, ListItem,
-		Icon, Button} from 'native-base'
+		Icon, Button, Left, Right} from 'native-base'
 import { NavigationActions } from 'react-navigation'
 
 import {allMateri} from '../../actions'
@@ -27,7 +27,7 @@ class Materi extends Component{
       headerRight:(
         <View>
             <View>
-               <Button transparent onPress={() => navigation.navigate('Home')} style={{height:50}}>
+               <Button transparent onPress={() => navigation.goBack()} style={{height:50}}>
                 <Text style={{color:'#FFF',paddingRight:10,fontWeight:'bold'}}>Back</Text>
               </Button>
             </View>
@@ -48,7 +48,12 @@ class Materi extends Component{
 					{this.props.materi.materies.map((item,i)=>{
 						return(
 							<ListItem key={i} onPress={()=>this.props.navigation.navigate('Detail',{materi:item.name,url:item.url})}>
-								<Text>{item.name}</Text>
+								<Left>
+									<Text>{item.name}</Text>
+								</Left>
+								<Right>
+									<Icon name='arrow-forward'/>
+								</Right>
 							</ListItem>
 							)
 					})}
